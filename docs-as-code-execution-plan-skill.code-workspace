@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../../.claude/skills/docs-as-code-execution-plan"
+		},
+		{
+			"path": "../../../.."
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: Handoff/Pickup command system\n\n- README.md documenting both commands and how they work together\n- Handoff document from 2025-12-04 auto-status update enhancement session\n\nThis project tracks development and maintenance of the /handoff and /pickup\ncustom Claude Code commands located at ~/.claude/commands/.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
