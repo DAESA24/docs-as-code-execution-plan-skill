@@ -23,7 +23,7 @@ The skill is installed at:
 ├── SKILL.md
 └── references/
     ├── docs-as-code-guide.md
-    └── execution-plan-template.md
+    └── docs-as-code-execution-plan-template.md
 ```
 
 The slash command is installed at:
@@ -46,13 +46,13 @@ ls ~/.claude/commands/execution-plan.md
 
 ### Trigger Phrases (Skill)
 
-The skill triggers on phrases like:
+The skill triggers on phrases that include "docs-as-code":
 
-- "Create an execution plan for..."
-- "Help me plan this change"
+- "Create a docs-as-code execution plan for..."
+- "Help me plan this change using a docs-as-code execution plan"
 - "Create a docs-as-code plan"
-- "Execute this plan"
-- "Archive this execution plan"
+- "Execute this plan" (in context of a docs-as-code plan)
+- "Archive this execution plan" (in context of a docs-as-code plan)
 
 ### Slash Command
 
@@ -139,7 +139,7 @@ Full documentation of the docs-as-code pattern, including:
 - Status prefixes for LLM parsing
 - Windows-specific patterns
 
-### execution-plan-template.md
+### docs-as-code-execution-plan-template.md
 
 Complete template with all sections:
 
@@ -156,9 +156,6 @@ Complete template with all sections:
 ## Related Files
 
 - **Source Guide:** [user-context/2025-11-17-docs-as-code-llm-execution-guide.md](user-context/2025-11-17-docs-as-code-llm-execution-guide.md)
-- **Example Plan:** [user-context/2025-12-02-ollama-startup-fix-v3-plan.md](user-context/2025-12-02-ollama-startup-fix-v3-plan.md)
-- **Execution Plan:** [docs/2025-12-03-infrastructure-skill-creation-execution-plan.md](docs/2025-12-03-infrastructure-skill-creation-execution-plan.md)
-- **Handoff:** [.claude/handoffs/2025-12-02-docs-as-code-execution-automation.md](.claude/handoffs/2025-12-02-docs-as-code-execution-automation.md)
 
 ## Development
 
@@ -171,5 +168,6 @@ This dev project serves as the source repository for the skill. To make changes:
 ---
 
 - **Created:** 2025-12-03
-- **Status:** Complete
+- **Last Updated:** 2025-12-04
+- **Status:** In Progress (pending manual trigger test)
 - **Author:** Drew Arnold (with Claude Code)

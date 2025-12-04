@@ -1,0 +1,8 @@
+# Session-specific working documents
+.claude/handoffs/
+
+# Personal reference files with private paths
+user-context/2025-12-02-ollama-startup-fix-v3-plan.md
+
+# Active execution plan (contains personal paths, will be sanitized when complete)
+docs/2025-12-03-docs-as-code-execution-plan-skill-creation-execution-plan.md

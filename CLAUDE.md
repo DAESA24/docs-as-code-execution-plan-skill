@@ -2,7 +2,8 @@
 
 - **Project Type:** Claude Code Skill Development
 - **Skill Name:** docs-as-code-execution-plan
-- **Target Location:** `~/.claude/skills/docs-as-code-execution-plan/`
+- **Installed Location:** `~/.claude/skills/docs-as-code-execution-plan/`
+- **Status:** Installed, pending manual trigger test
 
 ## Project Purpose
 
@@ -15,12 +16,21 @@ docs-as-code-execution-plan-skill/
 ├── .claude/
 │   └── handoffs/           # Session handoffs for continuity
 ├── docs/
-│   └── *.md                # Active execution plans for this skill's development
+│   └── *.md                # Execution plans for this skill's development
 ├── user-context/
 │   ├── docs-as-code guide  # The source pattern documentation
 │   └── example plans       # Reference execution plans
+├── README.md               # User documentation for the skill
 └── CLAUDE.md               # This file
 ```
+
+## Current Status
+
+The skill has been created and installed. Remaining work:
+
+- [ ] Manual trigger test in another project
+- [ ] Complete execution plan (check off Phase 6, update status to complete)
+- [ ] Archive execution plan to `docs/archives/`
 
 ## Development Workflow
 
@@ -30,49 +40,57 @@ docs-as-code-execution-plan-skill/
 2. Review the execution plan in `docs/`
 3. Continue from where the previous session left off
 
-### Creating the Skill
+### Installed Skill Structure
 
-The skill will be created at `~/.claude/skills/docs-as-code-execution-plan/` with:
-- `SKILL.md` - Main skill definition
-- `references/` - Template and guide files
+The skill is installed at `~/.claude/skills/docs-as-code-execution-plan/`:
+
+```
+docs-as-code-execution-plan/
+├── SKILL.md
+└── references/
+    ├── docs-as-code-guide.md
+    └── docs-as-code-execution-plan-template.md
+```
 
 ### Testing the Skill
 
-After installation, test with trigger phrases:
-- "Create an execution plan for X"
-- "Help me plan this change"
-- "Execute this plan"
-- "Archive this execution plan"
+Test with trigger phrases that include "docs-as-code":
+
+- "Create a docs-as-code execution plan for X"
+- "Help me plan this change using a docs-as-code execution plan"
+- "Create a docs-as-code plan"
+- "Execute this plan" (in context of a docs-as-code plan)
+- "Archive this execution plan" (in context of a docs-as-code plan)
+
+Also test the slash command:
+
+- `/execution-plan <topic words>`
 
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `docs/2025-12-03-infrastructure-skill-creation-execution-plan.md` | The execution plan for building this skill |
+| `docs/2025-12-03-docs-as-code-execution-plan-skill-creation-execution-plan.md` | The execution plan for building this skill (local only, not in git) |
 | `user-context/2025-11-17-docs-as-code-llm-execution-guide.md` | The docs-as-code pattern guide |
-| `user-context/2025-12-02-ollama-startup-fix-v3-plan.md` | Example execution plan for reference |
+| `README.md` | User documentation for the installed skill |
 
-## Skill Requirements
+## Skill Capabilities
 
-The skill must support:
+The skill supports:
 
 1. **Directory Management**
    - Auto-create `docs/` and `docs/archives/` if missing
-   - New plans → `docs/`
-   - Completed plans → `docs/archives/`
+   - New plans saved to `docs/`
+   - Completed plans moved to `docs/archives/`
 
-2. **Changelog Integration**
-   - Auto-create `CHANGELOG.md` if missing
-   - Update changelog when plans complete successfully
-
-3. **File Naming Convention**
+2. **File Naming Convention**
    - Format: `YYYY-MM-DD-<topic-words>-execution-plan[-vN].md`
    - Auto-detect and increment versions
 
-4. **Three Workflow Modes**
+3. **Three Workflow Modes**
    - Create: Generate new execution plans
    - Execute: Run existing plans autonomously
-   - Archive: Move completed plans and update changelog
+   - Archive: Move completed plans and update Dev Agent Record
 
 ## References
 
@@ -83,4 +101,5 @@ The skill must support:
 
 - **Document Status:** Active
 - **Created:** 2025-12-03
+- **Last Updated:** 2025-12-04
 - **Related:** [cc-skills-dev](../) parent directory for all skill development

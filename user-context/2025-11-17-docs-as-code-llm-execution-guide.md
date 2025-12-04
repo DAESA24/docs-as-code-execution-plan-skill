@@ -120,9 +120,9 @@ project/
 ## Paths (defined once, used throughout)
 
 ```bash
-source_path="/c/Users/drewa/source"
-dest_path="/c/Users/drewa/dest"
-backup_path="/c/Users/drewa/backup-$(date +%Y%m%d)"
+source_path="/c/Users/username/source"
+dest_path="/c/Users/username/dest"
+backup_path="/c/Users/username/backup-$(date +%Y%m%d)"
 ```
 ```
 
@@ -502,14 +502,14 @@ echo ""
 ❌ **WRONG (paragraph style):**
 ```markdown
 Created: 2025-11-17
-Author: Drew Arnold
+Author: Your Name
 Status: Active
 ```
 
 ✅ **CORRECT (bullet points):**
 ```markdown
 - **Created:** 2025-11-17
-- **Author:** Drew Arnold
+- **Author:** Your Name
 - **Status:** Active
 ```
 
@@ -523,11 +523,11 @@ Status: Active
 
 ```bash
 # ✅ CORRECT (Git Bash on Windows)
-dev_path="/c/Users/drewa/work/dev"
+dev_path="/c/Users/username/work/dev"
 cd "$dev_path" || exit 1
 
 # ❌ WRONG (Windows path)
-dev_path="C:\Users\drewa\work\dev"
+dev_path="C:\Users\username\work\dev"
 ```
 
 ### Symlink Considerations
