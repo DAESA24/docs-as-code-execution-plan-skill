@@ -3,7 +3,7 @@
 - **Project Type:** Claude Code Skill Development
 - **Skill Name:** docs-as-code-execution-plan
 - **Installed Location:** `~/.claude/skills/docs-as-code-execution-plan/`
-- **Status:** Installed, pending manual trigger test
+- **Status:** ✅ Complete - Installed and tested
 
 ## Project Purpose
 
@@ -11,12 +11,13 @@ This workspace is for developing and maintaining the `docs-as-code-execution-pla
 
 ## Directory Structure
 
-```
+```text
 docs-as-code-execution-plan-skill/
 ├── .claude/
 │   └── handoffs/           # Session handoffs for continuity
 ├── docs/
-│   └── *.md                # Execution plans for this skill's development
+│   ├── archives/           # Completed execution plans
+│   └── *.md                # Active execution plans
 ├── user-context/
 │   ├── docs-as-code guide  # The source pattern documentation
 │   └── example plans       # Reference execution plans
@@ -26,11 +27,24 @@ docs-as-code-execution-plan-skill/
 
 ## Current Status
 
-The skill has been created and installed. Remaining work:
+The skill is complete and fully functional.
 
-- [ ] Manual trigger test in another project
-- [ ] Complete execution plan (check off Phase 6, update status to complete)
-- [ ] Archive execution plan to `docs/archives/`
+- [x] Manual trigger test in another project (openmemory-implementation-project)
+- [x] Complete execution plan (Phase 6 marked complete, status updated)
+- [x] Archive execution plan to `docs/archives/`
+
+**Setup Note:** Skills reading their own reference files require global permissions. Add these to `~/.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Glob(~/.claude/skills/**)",
+      "Read(~/.claude/skills/**)"
+    ]
+  }
+}
+```
 
 ## Development Workflow
 
@@ -70,7 +84,7 @@ Also test the slash command:
 
 | File | Purpose |
 |------|---------|
-| `docs/2025-12-03-docs-as-code-execution-plan-skill-creation-execution-plan.md` | The execution plan for building this skill (local only, not in git) |
+| `docs/archives/2025-12-03-docs-as-code-execution-plan-skill-creation-execution-plan.md` | Archived execution plan for building this skill |
 | `user-context/2025-11-17-docs-as-code-llm-execution-guide.md` | The docs-as-code pattern guide |
 | `README.md` | User documentation for the installed skill |
 

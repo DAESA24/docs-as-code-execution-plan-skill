@@ -157,6 +157,23 @@ Complete template with all sections:
 
 - **Source Guide:** [user-context/2025-11-17-docs-as-code-llm-execution-guide.md](user-context/2025-11-17-docs-as-code-llm-execution-guide.md)
 
+## Setup: Global Permissions
+
+Skills need permission to read their own reference files. Add these to your global Claude Code settings (`~/.claude/settings.json`):
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Glob(~/.claude/skills/**)",
+      "Read(~/.claude/skills/**)"
+    ]
+  }
+}
+```
+
+Without this, you'll get approval prompts each time the skill tries to read its template.
+
 ## Development
 
 This dev project serves as the source repository for the skill. To make changes:
@@ -169,5 +186,5 @@ This dev project serves as the source repository for the skill. To make changes:
 
 - **Created:** 2025-12-03
 - **Last Updated:** 2025-12-04
-- **Status:** In Progress (pending manual trigger test)
+- **Status:** Complete
 - **Author:** Drew Arnold (with Claude Code)
