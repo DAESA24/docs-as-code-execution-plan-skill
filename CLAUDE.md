@@ -1,119 +1,76 @@
-# Docs-as-Code Execution Plan Skill Development
+# CLAUDE.md
 
-- **Project Type:** Claude Code Skill Development
-- **Skill Name:** docs-as-code-execution-plan
-- **Installed Location:** `~/.claude/skills/docs-as-code-execution-plan/`
-- **Status:** ✅ Complete - Installed and tested
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Purpose
+## Repository Purpose
 
-This workspace is for developing and maintaining the `docs-as-code-execution-plan` skill, which automates the creation, execution, and archiving of LLM execution plans following the docs-as-code pattern.
+Development repository for the `docs-as-code-execution-plan` Claude Code skill. This skill automates the docs-as-code LLM execution pattern for complex, multi-step tasks with pre-written bash scripts.
 
-## Directory Structure
+The skill is installed globally at `~/.claude/skills/docs-as-code-execution-plan/`. This repo serves as the source repository for development and as a public showcase.
 
-```text
-docs-as-code-execution-plan-skill/
-├── .claude/
-│   └── handoffs/           # Session handoffs for continuity
-├── docs/
-│   ├── archives/           # Completed execution plans
-│   └── *.md                # Active execution plans
-├── user-context/
-│   ├── docs-as-code guide  # The source pattern documentation
-│   └── example plans       # Reference execution plans
-├── README.md               # User documentation for the skill
-└── CLAUDE.md               # This file
+## Skill Architecture
+
+### Installed Skill Structure
+
+```
+~/.claude/skills/docs-as-code-execution-plan/
+├── SKILL.md                  # Skill definition with YAML frontmatter
+└── references/
+    ├── docs-as-code-guide.md                      # Pattern documentation
+    └── docs-as-code-execution-plan-template.md    # Plan template with YAML
 ```
 
-## Current Status
+### Slash Command
 
-The skill is complete and fully functional.
-
-- [x] Manual trigger test in another project (openmemory-implementation-project)
-- [x] Complete execution plan (Phase 6 marked complete, status updated)
-- [x] Archive execution plan to `docs/archives/`
-
-**Setup Note:** Skills reading their own reference files require global permissions. Add these to `~/.claude/settings.json`:
-
-```json
-{
-  "permissions": {
-    "allow": [
-      "Glob(~/.claude/skills/**)",
-      "Read(~/.claude/skills/**)"
-    ]
-  }
-}
+```
+~/.claude/commands/execution-plan.md    # Quick template scaffolding
 ```
 
 ## Development Workflow
 
-### Starting a Session
+### Making Changes to the Skill
 
-1. Run `/pickup` to resume from the latest handoff
-2. Review the execution plan in `docs/`
-3. Continue from where the previous session left off
+1. Edit files in this project's `user-context/` for reference material
+2. Copy updated files to `~/.claude/skills/docs-as-code-execution-plan/`
+3. Validate:
+   ```powershell
+   python ~/.claude/skills/skill-creator/scripts/quick_validate.py ~/.claude/skills/docs-as-code-execution-plan
+   ```
 
-### Installed Skill Structure
+### Testing
 
-The skill is installed at `~/.claude/skills/docs-as-code-execution-plan/`:
+Test skill in a separate project (not this one) to catch permission issues:
+- Trigger phrase: "Create a docs-as-code execution plan for..."
+- Slash command: `/execution-plan <topic words>`
 
-```
-docs-as-code-execution-plan/
-├── SKILL.md
-└── references/
-    ├── docs-as-code-guide.md
-    └── docs-as-code-execution-plan-template.md
-```
+## File Naming Convention
 
-### Testing the Skill
+Execution plans follow: `YYYY-MM-DD-<topic-words>-execution-plan[-vN].md`
 
-Test with trigger phrases that include "docs-as-code":
+- kebab-case, 3-4 topic words max
+- Version suffix only if previous exists
 
-- "Create a docs-as-code execution plan for X"
-- "Help me plan this change using a docs-as-code execution plan"
-- "Create a docs-as-code plan"
-- "Execute this plan" (in context of a docs-as-code plan)
-- "Archive this execution plan" (in context of a docs-as-code plan)
-
-Also test the slash command:
-
-- `/execution-plan <topic words>`
-
-## Key Files
+## Key Reference Files
 
 | File | Purpose |
 |------|---------|
-| `docs/archives/2025-12-03-docs-as-code-execution-plan-skill-creation-execution-plan.md` | Archived execution plan for building this skill |
-| `user-context/2025-11-17-docs-as-code-llm-execution-guide.md` | The docs-as-code pattern guide |
-| `README.md` | User documentation for the installed skill |
+| [user-context/2025-11-17-docs-as-code-llm-execution-guide.md](user-context/2025-11-17-docs-as-code-llm-execution-guide.md) | Source guide (sanitized for public) |
+| [docs/archives/](docs/archives/) | Archived execution plans (gitignored - contains personal paths) |
 
-## Skill Capabilities
+## Privacy Notes
 
-The skill supports:
+Files excluded from git (see `.gitignore`):
+- `.claude/handoffs/` - Session-specific documents
+- `docs/archives/` - Contain personal Windows paths
+- `user-context/manual-test-screenshots/` - Test artifacts
+- `user-context/2025-12-02-ollama-startup-fix-v3-plan.md` - Personal infrastructure
 
-1. **Directory Management**
-   - Auto-create `docs/` and `docs/archives/` if missing
-   - New plans saved to `docs/`
-   - Completed plans moved to `docs/archives/`
+When making changes to public files, replace personal paths (`/c/Users/drewa/...`) with generic paths (`/c/Users/username/...`).
 
-2. **File Naming Convention**
-   - Format: `YYYY-MM-DD-<topic-words>-execution-plan[-vN].md`
-   - Auto-detect and increment versions
+## Windows-Specific
 
-3. **Three Workflow Modes**
-   - Create: Generate new execution plans
-   - Execute: Run existing plans autonomously
-   - Archive: Move completed plans and update Dev Agent Record
+All bash scripts use Git Bash paths:
+- Correct: `/c/Users/username/...`
+- Wrong: `C:\Users\username\...`
 
-## References
-
-- **Skill Creator:** `~/.claude/skills/skill-creator/` - Best practices for skill creation
-- **Pattern Guide:** `user-context/2025-11-17-docs-as-code-llm-execution-guide.md`
-
----
-
-- **Document Status:** Active
-- **Created:** 2025-12-03
-- **Last Updated:** 2025-12-04
-- **Related:** [cc-skills-dev](../) parent directory for all skill development
+Python scripts with emojis need: `PYTHONIOENCODING=utf-8`
