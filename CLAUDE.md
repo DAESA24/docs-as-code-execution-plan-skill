@@ -50,6 +50,27 @@ Execution plans follow: `YYYY-MM-DD-<topic-words>-execution-plan[-vN].md`
 - kebab-case, 3-4 topic words max
 - Version suffix only if previous exists
 
+## Execution Plan Structure (Quick Reference)
+
+Plans created with this skill should include these key elements:
+
+| Section | Purpose |
+|---------|---------|
+| YAML front matter | Metadata (title, status, tags) |
+| Execution Instructions | Rules for sequential execution, stop-on-failure |
+| Test Plan Summary | Phase overview with pass/fail tracking |
+| Pre-Flight Validation | Prerequisites check before execution |
+| Phases with Steps | Each step has: Autonomous marker, Actions, Validation Checklist (checkboxes), Report marker |
+| Agent Execution Notes | Preservation targets, safe modification targets, execution trigger |
+| Rollback Procedure | How to undo if needed |
+| Dev Agent Record | Post-execution log (filled after completion) |
+
+Key patterns:
+
+- Validation Checklists use `- [ ]` checkboxes that get marked `- [x]` in-place during execution
+- Report markers: `**Report:** "STEP X.Y COMPLETE: <summary>"`
+- Phase validation step at end of each phase
+
 ## Key Reference Files
 
 | File | Purpose |
