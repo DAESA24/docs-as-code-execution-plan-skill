@@ -1,11 +1,19 @@
+---
+doc_type: feature-backlog-item
+title: "Docs-as-Code Execution Plan Skill - Template Enhancements"
+created: 2026-01-20
+status: implemented
+implemented_date: 2026-01-20
+feature_type_tags:
+  - enhancement
+  - documentation
+---
+
 # Docs-as-Code Execution Plan Skill - Template Enhancements Backlog
 
-- **Created:** 2026-01-20
 - **Source:** Analysis of Claude Memory Deletion Plan vs. current template
 - **Audience:** Claude Code (executing agent)
-- **Status:** Complete
-- **Implemented:** 2026-01-20
-- **Reference:** [2026-01-20-skill-template-enhancements-execution-plan.md](../../docs/archives/2026-01-20-skill-template-enhancements-execution-plan.md)
+- **Execution Plan:** [2026-01-20-skill-template-enhancements-execution-plan.md](../../docs/archives/2026-01-20-skill-template-enhancements-execution-plan.md)
 
 ---
 
