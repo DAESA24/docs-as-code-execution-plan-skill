@@ -4,13 +4,13 @@ Generates a docs-as-code execution plan for enhancing the docs-as-code-execution
 
 ## Arguments
 
-$ARGUMENTS - Path to the approved feature backlog item (e.g., `user-context/feature-backlog-staging/sub-agent-parallelization-strategy-2026-01-21.md`)
+$ARGUMENTS - Path to the approved feature backlog item (e.g., `feature-backlog-staging/sub-agent-parallelization-strategy-2026-01-21.md`)
 
 ## If No Arguments Provided
 
 If `$ARGUMENTS` is empty or not provided:
 
-1. **List available feature backlog items** - Scan `user-context/feature-backlog-staging/` for files with `status: approved` or `status: captured`
+1. **List available feature backlog items** - Scan `feature-backlog-staging/` for files with `status: approved` or `status: captured`
    - **EXCLUDE** items with terminal status: `implemented`, `deferred`, `rejected`
    - **EXCLUDE** files with `x-` prefix (these are archived/completed items)
 2. **Present options to Drew** - Show a numbered list of available items with their titles and status
@@ -136,7 +136,7 @@ Report to Drew:
 
 **Input:**
 ```
-/skill-enhance user-context/feature-backlog-staging/sub-agent-parallelization-strategy-2026-01-21.md
+/skill-enhance feature-backlog-staging/sub-agent-parallelization-strategy-2026-01-21.md
 ```
 
 **Output:**
