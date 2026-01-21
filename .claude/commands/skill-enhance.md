@@ -11,6 +11,8 @@ $ARGUMENTS - Path to the approved feature backlog item (e.g., `user-context/feat
 If `$ARGUMENTS` is empty or not provided:
 
 1. **List available feature backlog items** - Scan `user-context/feature-backlog-staging/` for files with `status: approved` or `status: captured`
+   - **EXCLUDE** items with terminal status: `implemented`, `deferred`, `rejected`
+   - **EXCLUDE** files with `x-` prefix (these are archived/completed items)
 2. **Present options to Drew** - Show a numbered list of available items with their titles and status
 3. **Ask Drew to select** - "Which feature backlog item should I create an enhancement plan for?"
 4. **Proceed** with the selected item
