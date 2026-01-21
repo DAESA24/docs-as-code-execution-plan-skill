@@ -118,6 +118,29 @@ Common tags (expand as patterns emerge):
 | `api` | API design, endpoints, contracts |
 | `data` | Data models, storage, processing |
 
+## Creating Skill-Enhance-Ready Items
+
+When creating feature backlog items intended for the `/skill-enhance` command, include these sections to enable high-quality execution plan generation:
+
+### Required Sections
+
+| Section | Purpose | Example Content |
+|---------|---------|-----------------|
+| `## Problem Statement` | What issue this solves | "The skill-enhance command proceeds without validating..." |
+| `## Requirements` | Explicit MUST/SHOULD list | "- Skill-enhance MUST validate backlog item structure" |
+| `## Implementation Phases` | Ordered phases with file targets | "### Phase 1: Update Command Documentation" |
+| `## Acceptance Criteria` | Verifiable completion conditions | "- [ ] Step 0 exists in skill-enhance command" |
+
+### File Reference Accuracy
+
+- Reference `SKILL.md` for the skill definition file
+- Reference `docs-as-code-guide.md` and `docs-as-code-execution-plan-template.md` for pattern documentation
+- Do NOT reference `CLAUDE.md` when you mean `SKILL.md`
+
+### Why This Matters
+
+The `/skill-enhance` command extracts key information from these sections to generate execution plans. Missing or incorrectly named sections require Claude to infer content, reducing plan quality.
+
 ## What NOT To Do
 
 - Do not create feature documents for work that's already in an execution plan

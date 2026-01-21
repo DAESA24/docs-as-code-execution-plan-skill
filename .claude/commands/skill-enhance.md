@@ -24,11 +24,35 @@ When enhancing this skill, using the skill itself to generate the execution plan
 ## Prerequisites
 
 - Feature backlog item must exist and have `status: approved` (or be ready for approval)
-- Feature backlog item should be sufficiently detailed (problem statement, requirements, proposed implementation)
+- Feature backlog item should be sufficiently detailed:
+  - `## Problem Statement` - What issue this solves
+  - `## Requirements` - Explicit MUST/SHOULD list (not just prose)
+  - `## Implementation Phases` - Ordered phases with file targets
+  - `## Acceptance Criteria` - Verifiable completion conditions
+  - Correct file references (`SKILL.md` for skill definition, not `CLAUDE.md`)
 
 ## Instructions
 
-### Step 1: Validate Feature Backlog Item
+### Step 0: Input Quality Review (Before Validation)
+
+Before validating frontmatter, review the backlog item's structural completeness:
+
+1. **Read the backlog item** at the provided path
+2. **Check for expected sections:**
+   - [ ] `## Problem Statement` - What issue this solves
+   - [ ] `## Requirements` - Explicit list of MUST/SHOULD requirements
+   - [ ] `## Implementation Phases` - Phases with file targets and ordering
+   - [ ] `## Acceptance Criteria` - Verifiable completion conditions
+   - [ ] File references point to correct skill files (`SKILL.md` not `CLAUDE.md`)
+3. **If gaps found:**
+   - Present a summary: "This backlog item is missing: [list]"
+   - Offer: "Should I suggest additions to improve it as an input, or proceed as-is?"
+   - If user wants improvements: suggest specific additions, wait for approval, apply edits
+4. **If complete:** Proceed to Step 1
+
+### Step 1: Validate Feature Backlog Item (Frontmatter)
+
+**Note:** Structural completeness was verified in Step 0. This step validates frontmatter only.
 
 1. Read the feature backlog item at the provided path
 2. Verify it has required frontmatter (`doc_type: feature-backlog-item`, `status: approved` or `captured`)
