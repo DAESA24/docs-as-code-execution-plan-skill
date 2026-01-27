@@ -2,7 +2,8 @@
 doc_type: feature-backlog-item
 title: "Add Validation Loop Execution Protocol"
 created: 2026-01-26
-status: captured
+status: implemented
+implemented_date: 2026-01-26
 execution_order: 1
 execution_sequence:
   - position: 1
@@ -18,6 +19,7 @@ feature_type_tags:
   - enhancement
   - execution
   - documentation
+execution_plan: docs/2026-01-26-validation-loop-protocol-skill-enhancement-plan.md
 ---
 
 # Add Validation Loop Execution Protocol
@@ -70,20 +72,21 @@ The following requirements ensure the validation loop protocol is enforced durin
 
 ## Implementation Phases
 
-Implementation follows the skill file update order defined in `skill-dev-config.yaml`:
+### Phase 1: Create execution-protocol-reference.md
 
-### Phase 1: Update docs-as-code-guide.md
-
-- **File:** `references/docs-as-code-guide.md`
+- **File:** `references/execution-protocol-reference.md` (NEW)
+- **Purpose:** Authoritative source for execution rules, separate from pattern documentation
 - **Changes:**
-  - Add new pattern: "Pattern N: Validation Loop Protocol"
-  - Include the core principles from Manus context engineering
-  - Document the non-negotiable execution steps
-  - Add anti-patterns table
+  - Create new reference document focused on execution behavior
+  - Include the core principles from Manus context engineering (why the protocol matters)
+  - Document the non-negotiable execution steps (Critical Rules)
+  - Add "What NOT to Do" anti-patterns table
+  - Include recovery protocol (resume from last checked item)
 
 ### Phase 2: Update docs-as-code-execution-plan-template.md
 
 - **File:** `references/docs-as-code-execution-plan-template.md`
+- **Purpose:** Embed protocol inline so it travels with every generated plan
 - **Changes:**
   - Add "Execution Protocol: Validation Loop (MANDATORY)" section after header
   - Include the full protocol inline (same approach as skill-enhance)
@@ -93,38 +96,72 @@ Implementation follows the skill file update order defined in `skill-dev-config.
 ### Phase 3: Update SKILL.md
 
 - **File:** `SKILL.md`
+- **Purpose:** Reference the protocol document, keep SKILL.md focused on modes
 - **Changes:**
-  - Update Mode 2 (Execute Existing Plan) to reference the validation loop protocol
-  - Add explicit "Non-Negotiable Execution Rules" subsection
-  - Add "What NOT to Do" anti-patterns table
-  - Update Quality Checklist to include protocol presence check
+  - Update Mode 2 (Execute Existing Plan) to reference `execution-protocol-reference.md`
+  - Keep Mode 2 focused (no inline rules or anti-patterns table)
+  - Update Quality Checklist to include "Execution Protocol section present" item
 
 ## Acceptance Criteria
 
-- [ ] `docs-as-code-guide.md` contains validation loop pattern documentation
+- [ ] `references/execution-protocol-reference.md` exists with Critical Rules and anti-patterns table
 - [ ] Template includes inline execution protocol section (mandatory, not optional)
 - [ ] Template includes "Errors Encountered" section placeholder
-- [ ] SKILL.md Mode 2 explicitly references validation loop protocol
-- [ ] SKILL.md includes anti-patterns table for execution behavior
+- [ ] SKILL.md Mode 2 references `execution-protocol-reference.md` (not inline rules)
 - [ ] Quality Checklist includes "Execution Protocol section present" item
 - [ ] Test: Generate a new execution plan and verify protocol section is included
 - [ ] Test: Execute a plan and verify checkboxes are marked immediately (not batched)
 
 ## Reference Materials
 
-The validation loop protocol is well-documented in the skill-enhance skill:
+### Primary Reference: Planning With Files Skill
 
-- **Protocol Definition:** `~/.claude/skills/skill-enhance/reference.md`
-- **Inline Template:** `~/.claude/skills/skill-enhance/SKILL.md` (lines 157-254)
-- **Origin:** Manus context engineering principles (planning-with-files skill reference)
+The validation loop protocol patterns are established in the Planning With Files skill (`~/.claude/skills/planning-with-files/`). This skill demonstrates proven patterns for:
 
-Key sections to align with:
+- **Critical Rules section** (SKILL.md lines 189-244) - Numbered, non-negotiable rules
+- **Anti-Patterns table** (SKILL.md lines 350-360) - "Don't / Do Instead" format
+- **Errors Encountered section** - Single section in the plan template (line 162-163), format: `- [Error]: [Resolution]`
+- **The Loop pattern** - Explicit workflow showing when to read/write/edit around each phase
 
-1. Core Principles (Filesystem as External Memory, Attention Manipulation, Keep Failure Traces)
-2. The Loop - Non-Negotiable Steps (BEFORE/DURING/AFTER each phase)
-3. What NOT to Do (Anti-Patterns table)
-4. Recovery Protocol (resume from last checked item)
-5. Completion Protocol (update feature backlog, archive)
+### Specific Patterns to Adapt
+
+| Pattern | Planning With Files Location | Target Location |
+| ------- | ---------------------------- | --------------- |
+| Critical Rules | SKILL.md "Critical Rules" section | `execution-protocol-reference.md` |
+| Read Before Decide | Rule #2: "Before any major decision, read the plan file" | `execution-protocol-reference.md` + template inline |
+| Update After Act | Rule #3: "After completing any phase, immediately update" | `execution-protocol-reference.md` + template inline |
+| Log All Errors | Rule #5: "Every error goes in the 'Errors Encountered' section" | `execution-protocol-reference.md` + template inline |
+| Anti-patterns table | "Anti-Patterns to Avoid" table | `execution-protocol-reference.md` |
+| Errors Encountered section | task_plan.md template (line 162-163) | Template inline |
+
+### Errors Encountered Section Placement
+
+The "Errors Encountered" section is a **single section** in the plan (not per-phase). Located in the plan body alongside "Decisions Made":
+
+```markdown
+## Errors Encountered
+- [Error]: [Resolution]
+```
+
+This matches the Planning With Files task_plan.md template structure.
+
+### Secondary References
+
+- **skill-enhance skill:** `~/.claude/skills/skill-enhance/` - Shows inline protocol in generated plans
+- **Manus context engineering:** `~/.claude/skills/planning-with-files/reference.md` - Documents the underlying principles
+
+### Architectural Decision: Separate Reference Document
+
+**Decision:** Create `execution-protocol-reference.md` rather than adding rules to SKILL.md or docs-as-code-guide.md.
+
+**Rationale:**
+
+- **Separation of concerns:** Guide explains the pattern (creation), protocol explains execution behavior
+- **Focused and unambiguous:** A dedicated file clearly communicates "these are the execution rules"
+- **SKILL.md stays lean:** Modes and quality checklist only, no inline rules or anti-patterns
+- **Template is critical:** The inline protocol in the template is what Claude sees during execution; the reference doc is authoritative source
+
+**Key insight:** During plan execution, Claude's attention is on the plan file itself. Reference documents loaded at skill invocation may fade after many tool calls. This is why the template must embed the protocol inline.
 
 ## Context and Evidence
 
@@ -149,4 +186,4 @@ Key sections to align with:
 
 - **Document Status:** Captured
 - **Last Updated:** 2026-01-26
-- **Related:** skill-enhance validation loop protocol
+- **Related:** planning-with-files validation loop protocol, skill-enhance inline protocol
