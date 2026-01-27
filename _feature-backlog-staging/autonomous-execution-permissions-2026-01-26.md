@@ -7,13 +7,16 @@ execution_order: 3
 execution_sequence:
   - position: 1
     item: validation-loop-execution-protocol-2026-01-26.md
-    status: implement first
+    status: implemented
   - position: 2
     item: pre-execution-git-safety-check-2026-01-26.md
-    status: implement second
+    status: implemented
   - position: 3
     item: autonomous-execution-permissions-2026-01-26.md
-    status: THIS ITEM (implement last)
+    status: THIS ITEM
+  - position: 4
+    item: execution-logging-2026-01-27.md
+    status: pending (depends on this item)
 depends_on: pre-execution-git-safety-check-2026-01-26.md
 feature_type_tags:
   - enhancement
@@ -47,20 +50,54 @@ The safety net (git rollback point) must be in place before granting broad permi
 - Steps marked `Autonomous: NO` still pause for user confirmation (skill logic, not tool permissions)
 - Trust model is explicit: vetting happens at plan creation, not execution
 
+## Specification Status
+
+**Field:** `allowed-tools` is a valid YAML frontmatter field per the [Agent Skills Specification](https://agentskills.io/specification).
+
+**Status:** **Experimental** - The spec explicitly states support may vary between agent implementations.
+
+**Implication:** Claude Code may or may not honor this field. Implementation must include verification testing.
+
+### Syntax Options
+
+```yaml
+# Simple (blanket permissions)
+allowed-tools: Read Edit Write Bash
+
+# Scoped (more secure - recommended)
+allowed-tools: Read Edit Write Bash(git:*) Bash(npm:*)
+```
+
+The scoped syntax (`Bash(git:*)`) restricts which commands are pre-approved. Consider using scoped permissions for better security posture.
+
 ## Requirements
 
 The following requirements enable frictionless autonomous execution:
 
+- **MUST** verify Claude Code honors `allowed-tools` before full implementation
 - **MUST** add `allowed-tools` field to SKILL.md frontmatter
-- **MUST** include these tools: `Read`, `Edit`, `Write`, `Bash`
+- **MUST** include these tools: `Read`, `Edit`, `Write`, `Bash`, `Glob`
 - **MUST** document the trust model (vetting at plan creation, not execution)
+- **MUST** document the experimental status of `allowed-tools`
 - **MUST** preserve `Autonomous: NO` pause behavior for destructive operations
+- **SHOULD** consider scoped Bash permissions (e.g., `Bash(git:*)`) vs blanket `Bash`
 - **SHOULD** clarify the distinction between tool permissions and `Autonomous: YES/NO` markers
 - **SHOULD** note that user's deny rules in settings still take precedence
+- **SHOULD** include fallback documentation if feature isn't fully supported
 
 ## Implementation Phases
 
 Implementation follows the skill file update order defined in `skill-dev-config.yaml`:
+
+### Phase 0: Verify Claude Code Support
+
+- **Goal:** Confirm Claude Code honors `allowed-tools` before proceeding
+- **Steps:**
+  1. Create a minimal test skill with `allowed-tools: Read Edit`
+  2. Invoke the skill in a test project
+  3. Attempt Read and Edit operations
+  4. Observe whether permission prompts appear
+- **Gate:** If prompts still appear, this feature cannot be implemented as designed. Document findings and close as "blocked on Claude Code support."
 
 ### Phase 1: Update docs-as-code-guide.md
 
@@ -83,10 +120,22 @@ Implementation follows the skill file update order defined in `skill-dev-config.
 
 ## Acceptance Criteria
 
-- [ ] SKILL.md frontmatter includes `allowed-tools: Read, Edit, Write, Bash`
+### Phase 0 Gate (Must Pass Before Proceeding)
+
+- [ ] Test skill created with `allowed-tools` field
+- [ ] Claude Code verified to honor `allowed-tools` (no prompts for listed tools)
+- [ ] If not honored: document findings, close feature as blocked
+
+### Implementation Criteria
+
+- [ ] SKILL.md frontmatter includes `allowed-tools: Read Edit Write Bash Glob`
 - [ ] Guide documents the trust model (plan-time vetting)
 - [ ] Guide explains `allowed-tools` vs `Autonomous: YES/NO` distinction
+- [ ] Guide notes experimental status of `allowed-tools`
 - [ ] SKILL.md has "Permissions and Trust Model" documentation section
+
+### Validation Criteria
+
 - [ ] Test: Execute autonomous step, verify no permission prompt
 - [ ] Test: Execute `Autonomous: NO` step, verify pause for confirmation
 - [ ] Test: Verify user deny rules in settings.json still block operations
@@ -99,9 +148,11 @@ Implementation follows the skill file update order defined in `skill-dev-config.
 ---
 name: docs-as-code-execution-plan
 description: ...existing description...
-allowed-tools: Read, Edit, Write, Bash
+allowed-tools: Read Edit Write Bash Glob
 ---
 ```
+
+**Note:** The spec uses space-delimited format, not comma-delimited.
 
 ### Trust Model Documentation
 
@@ -130,6 +181,10 @@ These are independent:
   - The safety check must be implemented first
   - Pattern: "Safety first, then freedom"
 
+- **Depended on by:** `execution-logging-2026-01-27.md`
+  - Logging is most valuable during autonomous execution
+  - Pattern: "Autonomy requires accountability"
+
 ## Context and Evidence
 
 ### Origin
@@ -142,6 +197,6 @@ Discussion with Drew on 2026-01-26. Key insight: Drew already approves every per
 
 ---
 
-- **Document Status:** Captured
-- **Last Updated:** 2026-01-26
+- **Document Status:** Captured (Updated with spec verification)
+- **Last Updated:** 2026-01-27
 - **Depends On:** pre-execution-git-safety-check-2026-01-26.md
