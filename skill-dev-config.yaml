@@ -1,0 +1,45 @@
+# Skill Development Configuration
+# docs-as-code-execution-plan skill
+
+# =============================================================================
+# SKILL METADATA
+# =============================================================================
+
+skill_name: "Docs-as-Code Execution Plan"
+skill_id: "docs-as-code-execution-plan"
+status: "active"
+created: "2026-01-25"
+
+description: >
+  Generates docs-as-code style execution plans for development tasks.
+  Creates structured, checkbox-driven plans that Claude Code can execute
+  autonomously while providing clear reporting and rollback procedures.
+
+# =============================================================================
+# INSTALLATION
+# =============================================================================
+
+installation:
+  installed_path: "~/.claude/skills/docs-as-code-execution-plan/"
+  validate_command: "skills-ref validate ~/.claude/skills/docs-as-code-execution-plan"
+
+# =============================================================================
+# SKILL FILES
+# =============================================================================
+
+# Order matters: dependencies first, main entry point last
+skill_files:
+  update_order:
+    - "references/docs-as-code-guide.md"
+    - "references/docs-as-code-execution-plan-template.md"
+    - "SKILL.md"
+
+# =============================================================================
+# PROJECT STRUCTURE
+# =============================================================================
+
+project_structure:
+  feature_backlog: "_feature-backlog-staging/"
+  execution_plans: "docs/"
+  archives: "docs/archive/"
+  user_context: "user-context/"
