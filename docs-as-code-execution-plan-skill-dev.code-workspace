@@ -4,10 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "../../../../.claude/skills/docs-as-code-execution-plan"
+			"path": "../../../../.claude/skills"
 		},
 		{
-			"path": "../../../.."
+			"path": "../.."
 		},
 		{
 			"path": "../../.."
